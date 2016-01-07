@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Outmoded
 {
@@ -47,14 +46,14 @@ namespace Outmoded
 			return;
 		}
 
-		public void SetPixel(OVector2D Position, char Character)
+		public void SetCell(OVector2D Position, char Character)
 		{
-			this.SetPixel(Position, this.DefaultForegroundColor, this.DefaultBackgroundColor, Character);
+			this.SetCell(Position, this.DefaultForegroundColor, this.DefaultBackgroundColor, Character);
 
 			return;
 		}
 
-		public void SetPixel(OVector2D Position, ConsoleColor Foreground, ConsoleColor Background, char Character)
+		public void SetCell(OVector2D Position, ConsoleColor Foreground, ConsoleColor Background, char Character)
 		{
 			this.FrameTemp.Add(new CellInfo(Position, Foreground, Background, Character));
 
@@ -70,21 +69,21 @@ namespace Outmoded
 			return;
 		}
 
-		protected void OutputPixel(CellInfo Pixel)
+		protected void OutputCell(CellInfo Cell)
 		{
-			Console.SetCursorPosition(Pixel.Position.X, Pixel.Position.Y);
-			Console.ForegroundColor = Pixel.Foreground;
-			Console.BackgroundColor = Pixel.Background;
-			Console.Write(Pixel.Character);
+			Console.SetCursorPosition(Cell.Position.X, Cell.Position.Y);
+			Console.ForegroundColor = Cell.Foreground;
+			Console.BackgroundColor = Cell.Background;
+			Console.Write(Cell.Character);
 
 			return;
 		}
 
 		protected void OutputFrame(Frame Frame)
 		{
-			foreach (var pixel in Frame)
+			foreach (var cell in Frame)
 			{
-				this.OutputPixel(pixel);
+				this.OutputCell(cell);
 			}
 
 			return;
