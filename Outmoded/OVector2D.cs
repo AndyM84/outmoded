@@ -12,5 +12,15 @@
 			this.X = X;
 			this.Y = Y;
 		}
+
+		public OVector2D Translate(int X, int Y)
+		{
+			return this.Translate(new OVector2D(X, Y));
+		}
+
+		public OVector2D Translate(OVector2D Offset)
+		{
+			return new OVector2D(this.X + Offset.X, this.Y + Offset.Y);
+		}
 	}
 }
