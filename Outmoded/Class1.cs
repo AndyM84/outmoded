@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Outmoded
 {
-	class Program
-	{
-		static void Main(string[] args)
-		{
-		}
-	}
+    public class Class1
+    {
+    }
 }
