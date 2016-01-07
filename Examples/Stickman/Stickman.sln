@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stickman", "Stickman.csproj", "{34DB7CB2-C61C-41B9-9360-86D06B792486}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outmoded", "..\..\Outmoded\Outmoded.csproj", "{DD26CD61-809B-47EB-A897-E5226823B315}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34DB7CB2-C61C-41B9-9360-86D06B792486}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34DB7CB2-C61C-41B9-9360-86D06B792486}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34DB7CB2-C61C-41B9-9360-86D06B792486}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34DB7CB2-C61C-41B9-9360-86D06B792486}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD26CD61-809B-47EB-A897-E5226823B315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD26CD61-809B-47EB-A897-E5226823B315}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD26CD61-809B-47EB-A897-E5226823B315}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD26CD61-809B-47EB-A897-E5226823B315}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
