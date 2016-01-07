@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
 
 namespace Outmoded
 {
@@ -55,16 +54,22 @@ namespace Outmoded
 
 		public void SetCell(OVector2D Position, ConsoleColor Foreground, ConsoleColor Background, char Character)
 		{
-			this.FrameTemp.Add(new CellInfo(Position, Foreground, Background, Character));
+			lock (this.FrameLock)
+			{
+				this.FrameTemp.Add(new CellInfo(Position, Foreground, Background, Character));
+			}
 
 			return;
 		}
 
 		public void RenderFrame()
 		{
-			this.ClearScreen();
-			this.OutputFrame(this.FrameTemp);
-			this.FrameTemp = new Frame();
+			lock (this.FrameLock)
+			{
+				this.ClearScreen();
+				this.OutputFrame(this.FrameTemp);
+				this.FrameTemp = new Frame();
+			}
 
 			return;
 		}
@@ -81,9 +86,12 @@ namespace Outmoded
 
 		protected void OutputFrame(Frame Frame)
 		{
-			foreach (var cell in Frame)
+			lock (this.FrameLock)
 			{
-				this.OutputCell(cell);
+				foreach (var cell in Frame)
+				{
+					this.OutputCell(cell);
+				}
 			}
 
 			return;
