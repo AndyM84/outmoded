@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Outmoded
 {
+
 	public class Outmoded
 	{
 		public ConsoleColor DefaultForegroundColor { get; set; }
@@ -16,7 +17,11 @@ namespace Outmoded
 		public Outmoded() : this(false) { }
 		public Outmoded(bool ClearScreen) : this(ClearScreen, ConsoleColor.White, ConsoleColor.Black, Encoding.UTF8) { }
 
-		public Outmoded(bool ClearScreen, ConsoleColor DefaultForegroundColor, ConsoleColor DefaultBackgroundColor, Encoding NewEncoding)
+
+        static void Main(string[] args)
+        {
+        }
+        public Outmoded(bool ClearScreen, ConsoleColor DefaultForegroundColor, ConsoleColor DefaultBackgroundColor, Encoding NewEncoding)
 		{
 			Console.OutputEncoding = NewEncoding;
 
@@ -31,7 +36,21 @@ namespace Outmoded
 			}
 		}
 
-		public void ClearScreen()
+        public bool Getkeyinput(char checkkey)
+        {
+            bool istrue = false;
+
+            if (Console.ReadKey(true).KeyChar == checkkey)
+            {
+                istrue = true;
+            }
+            
+                
+
+            return istrue;
+        }
+
+        public void ClearScreen()
 		{
 			Console.Clear();
 
@@ -61,8 +80,8 @@ namespace Outmoded
 
 			return;
 		}
-
-		public void RenderFrame()
+      
+        public void RenderFrame()
 		{
 			lock (this.FrameLock)
 			{
