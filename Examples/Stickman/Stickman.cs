@@ -51,18 +51,53 @@ namespace Stickman
 			Console.SetCursorPosition(0, Console.WindowHeight - 2);
 
 			Console.WriteLine("Press ESC to stop");
-			do
-			{
-				if(eng.GetKeyInput(ConsoleKey.A))
-				{
-					Console.WriteLine("pressed the a button");
-				}
 
-				if (eng.GetKeyInput(ConsoleKey.Escape))
-				{
-					break;
-				}
-			} while (true);
+            ConsoleKeyInfo keypressed = new ConsoleKeyInfo();
+
+            do
+            {  
+                while (Console.KeyAvailable == false)
+                Thread.Sleep(250); // Loop until input is entered.
+
+                keypressed = Console.ReadKey(true);
+                if (keypressed.Key == ConsoleKey.W)
+                {
+                    Console.WriteLine("pressed the W button");
+                }
+                if (keypressed.Key == ConsoleKey.A)
+                {
+                    Console.WriteLine("pressed the A button");
+                }
+                if (keypressed.Key == ConsoleKey.S)
+                {
+                    Console.WriteLine("pressed the S button");
+                }
+                if (keypressed.Key == ConsoleKey.D)
+                {
+                    Console.WriteLine("pressed the D button");
+                }
+            } while (keypressed.Key != ConsoleKey.Escape);
+        
+    
+            //old
+            /*
+            do
+			{
+                
+
+                  if (Console.KeyAvailable == true && eng.GetKeyInput(ConsoleKey.A))
+                    {
+                        Console.WriteLine("pressed the a button");
+                    }
+                  
+                    if (eng.GetKeyInput(ConsoleKey.Escape))
+                    {
+                        break;
+                    }
+                    
+            } while (true);
+            */
+
 
 			Console.Write("\r Press return to exit..");
 			Console.ReadLine();
