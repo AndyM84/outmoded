@@ -4,7 +4,6 @@ using System.Text;
 
 namespace Outmoded
 {
-
 	public class Outmoded
 	{
 		public ConsoleColor DefaultForegroundColor { get; set; }
@@ -17,11 +16,7 @@ namespace Outmoded
 		public Outmoded() : this(false) { }
 		public Outmoded(bool ClearScreen) : this(ClearScreen, ConsoleColor.White, ConsoleColor.Black, Encoding.UTF8) { }
 
-
-        static void Main(string[] args)
-        {
-        }
-        public Outmoded(bool ClearScreen, ConsoleColor DefaultForegroundColor, ConsoleColor DefaultBackgroundColor, Encoding NewEncoding)
+		public Outmoded(bool ClearScreen, ConsoleColor DefaultForegroundColor, ConsoleColor DefaultBackgroundColor, Encoding NewEncoding)
 		{
 			Console.OutputEncoding = NewEncoding;
 
@@ -36,21 +31,29 @@ namespace Outmoded
 			}
 		}
 
-        public bool Getkeyinput(char checkkey)
-        {
-            bool istrue = false;
+		public bool GetKeyInput(char checkkey)
+		{
+			bool istrue = false;
 
-            if (Console.ReadKey(true).KeyChar == checkkey)
-            {
-                istrue = true;
-            }
-            
-                
+			if (Console.ReadKey(true).KeyChar == checkkey)
+			{
+				istrue = true;
+			}
 
-            return istrue;
-        }
+			return istrue;
+		}
 
-        public void ClearScreen()
+		public bool GetKeyInput(ConsoleKey Key)
+		{
+			if (Console.KeyAvailable && Console.ReadKey(true).Key == Key)
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		public void ClearScreen()
 		{
 			Console.Clear();
 
@@ -80,8 +83,8 @@ namespace Outmoded
 
 			return;
 		}
-      
-        public void RenderFrame()
+
+		public void RenderFrame()
 		{
 			lock (this.FrameLock)
 			{
