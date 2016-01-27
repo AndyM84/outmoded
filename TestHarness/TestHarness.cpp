@@ -5,23 +5,38 @@
 	#include <atlbase.h>
 #else
 	#include <term.h>
+	#include <ncurses.h>
 	#include <unistd.h>
 #endif
 
-void write(LPCWSTR, short, short);
-void clear();
+#ifdef WIN32
+	void write(LPCWSTR, short, short);
+#else
+	void write(char c, short, short);
+#endif
+void clearApp();
 void pauseApp(int);
 
 struct CellInfo
 {
+#ifdef WIN32
 	LPCWSTR Value;
+#else
+	char Value;
+#endif
 	short X, Y;
 };
 
 CellInfo Box[] = {
+#ifdef WIN32
 	{ L"X", 1, 1 }, { L"X", 2, 1 }, { L"X", 3, 1 },
 	{ L"X", 1, 2 }, { L"X", 2, 2 }, { L"X", 3, 2 },
 	{ L"X", 1, 3 }, { L"X", 2, 3 }, { L"X", 3, 3 }
+#else
+	{ 'X', 1, 1 }, { 'X', 2, 1 }, { 'X', 3, 1 },
+	{ 'X', 1, 2 }, { 'X', 2, 2 }, { 'X', 3, 2 },
+	{ 'X', 1, 3 }, { 'X', 2, 3 }, { 'X', 3, 3 }
+#endif
 };
 
 int main()
@@ -34,7 +49,7 @@ int main()
 
 	for (int i = 0; i < 300; ++i)
 	{
-		clear();
+		clearApp();
 
 		for (int j = 0; j < boxLen; ++j)
 		{
@@ -49,9 +64,9 @@ int main()
 	return 0;
 }
 
+#ifdef WIN32
 void write(LPCWSTR c, short x, short y)
 {
-#ifdef WIN32
 	COORD pos = { x, y };
 	DWORD dwBytesWritten = 0;
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -62,14 +77,20 @@ void write(LPCWSTR c, short x, short y)
 	}
 
 	WriteConsoleOutputCharacter(hConsole, c, 1, pos, &dwBytesWritten);
-#else
-#endif
 
 	return;
 }
+#else
+void write(char c, short x, short y)
+{
+	mvaddch(y, x, c);
+
+	return;
+}
+#endif
 
 // Credit where due: http://stackoverflow.com/a/6487534/563136
-void clear()
+void clearApp()
 {
 #ifdef WIN32
 	COORD topLeft = { 0, 0 };
@@ -82,7 +103,7 @@ void clear()
 	FillConsoleOutputAttribute(console, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE, screen.dwSize.X * screen.dwSize.Y, topLeft, &written);
 	SetConsoleCursorPosition(console, topLeft);
 #else
-	putp(tigetstr("clear"));
+	refresh();
 #endif
 
 	return;
