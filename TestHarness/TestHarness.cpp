@@ -45,6 +45,8 @@ int main()
 		pauseApp(33);
 	}
 
+	std::cout << "Thanks for playing!" << std::endl;
+
 	std::cin.get();
 
 #ifndef WIN32
