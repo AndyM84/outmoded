@@ -28,7 +28,7 @@ CellInfo Box[] = {
 int main()
 {
 #ifndef WIN32
-	setupterm(NULL, fileno(stdout), NULL);
+	initscr();
 #endif
 
 	int boxLen = sizeof(Box) / sizeof(CellInfo);
@@ -46,6 +46,10 @@ int main()
 	}
 
 	std::cin.get();
+
+#ifndef WIN32
+	endwin();
+#endif
 
 	return 0;
 }
@@ -66,6 +70,7 @@ void write(char c, short x, short y)
 	WriteConsoleOutputCharacter(hConsole, CA2W(pC), 1, pos, &dwBytesWritten);
 #else
 	mvaddch(y, x, c);
+	refresh();
 #endif
 
 	return;
@@ -85,7 +90,7 @@ void clearApp()
 	FillConsoleOutputAttribute(console, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE, screen.dwSize.X * screen.dwSize.Y, topLeft, &written);
 	SetConsoleCursorPosition(console, topLeft);
 #else
-	refresh();
+	clear();
 #endif
 
 	return;
