@@ -54,6 +54,8 @@ KeyTranslation Keys[] = {
 #else
 KeyTranslation Keys[] = {
 	{ KEY_ENTER, RETURN },
+	{ KEY_IL, RETURN },
+	{ 10, RETURN },
 	{ KEY_LEFT, LEFT },
 	{ KEY_RIGHT, RIGHT },
 	{ KEY_UP, UP },
@@ -70,6 +72,7 @@ int main()
 	initscr();
 	timeout(100);
 	noecho();
+	keypad(stdscr, TRUE);
 #endif
 
 	int boxLen = sizeof(Box) / sizeof(CellInfo);
@@ -136,12 +139,13 @@ int main()
 
 	clearApp();
 
-	std::cout << "Thanks for playing!" << std::endl;
-	std::cin.get();
-
 #ifndef _WIN32
 	endwin();
+	timeout(-1);
 #endif
+
+	std::cout << "Thanks for playing!" << std::endl;
+	std::cin.get();
 
 	return 0;
 }
@@ -208,17 +212,25 @@ TranslatedKeys keyDown()
 {
 	int keyLen = sizeof(Keys) / sizeof(KeyTranslation);
 
+#ifdef _WIN32
 	for (int i = 0; i < keyLen; ++i)
 	{
-#ifdef _WIN32
 		if (GetAsyncKeyState(Keys[i].OsKey))
-#else
-		if (getch() == Keys[i].OsKey)
-#endif
 		{
 			return Keys[i].Translation;
 		}
 	}
+#else
+	int ch = getch();
+
+	for (int i = 0; i < keyLen; ++i)
+	{
+		if (ch == Keys[i].OsKey)
+		{
+			return Keys[i].Translation;
+		}
+	}
+#endif
 
 	return NONE;
 }
