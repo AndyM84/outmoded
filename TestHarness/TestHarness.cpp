@@ -93,7 +93,7 @@ int main()
 			needsWritten = false;
 		}
 
-		TranslatedKeys downKey = keyDown();
+		auto downKey = keyDown();
 
 		if (downKey != NONE)
 		{
