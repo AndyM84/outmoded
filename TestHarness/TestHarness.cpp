@@ -12,7 +12,6 @@
 void write(char c, short, short);
 void clearApp();
 void pauseApp(int);
-int keyDown();
 
 struct CellInfo
 {
@@ -26,25 +25,51 @@ CellInfo Box[] = {
 	{ 'X', 1, 3 }, { 'X', 2, 3 }, { 'X', 3, 3 }
 };
 
+enum TranslatedKeys
+{
+	NONE = 0,
+	RETURN = 1,
+	LEFT = 2,
+	RIGHT = 3,
+	UP = 4,
+	DOWN = 5,
+	ESC = 6
+};
+
+struct KeyTranslation
+{
+	int OsKey;
+	TranslatedKeys Translation;
+};
+
 #ifdef _WIN32
-int Keys[] = {
-	VK_RETURN,
-	VK_LEFT,
-	VK_RIGHT,
-	VK_UP,
-	VK_DOWN,
-	VK_ESCAPE
+KeyTranslation Keys[] = {
+	{ VK_RETURN, RETURN },
+	{ VK_LEFT, LEFT },
+	{ VK_RIGHT, RIGHT },
+	{ VK_UP, UP },
+	{ VK_DOWN, DOWN },
+	{ VK_ESCAPE, ESC }
 };
 #else
-int Keys[] = {
-
+KeyTranslation Keys[] = {
+	{ KEY_ENTER, RETURN },
+	{ KEY_LEFT, LEFT },
+	{ KEY_RIGHT, RIGHT },
+	{ KEY_UP, UP },
+	{ KEY_DOWN, DOWN },
+	{ 27, ESC }
 };
 #endif
+
+TranslatedKeys keyDown();
 
 int main()
 {
 #ifndef _WIN32
 	initscr();
+	timeout(100);
+	noecho();
 #endif
 
 	int boxLen = sizeof(Box) / sizeof(CellInfo);
@@ -65,39 +90,39 @@ int main()
 			needsWritten = false;
 		}
 
-		auto downKey = keyDown();
+		TranslatedKeys downKey = keyDown();
 
-		if (downKey)
+		if (downKey != NONE)
 		{
 			switch (downKey)
 			{
-			case VK_RETURN:
+			case RETURN:
 				needsWritten = true;
 				currentPos.X = 0;
 				currentPos.Y = 0;
 
 				break;
-			case VK_LEFT:
+			case LEFT:
 				needsWritten = true;
 				currentPos.X -= 1;
 
 				break;
-			case VK_RIGHT:
+			case RIGHT:
 				needsWritten = true;
 				currentPos.X += 1;
 
 				break;
-			case VK_UP:
+			case UP:
 				needsWritten = true;
 				currentPos.Y -= 1;
 
 				break;
-			case VK_DOWN:
+			case DOWN:
 				needsWritten = true;
 				currentPos.Y += 1;
 
 				break;
-			case VK_ESCAPE:
+			case ESC:
 				keepRunning = false;
 
 				break;
@@ -179,18 +204,22 @@ void pauseApp(int span)
 	return;
 }
 
-int keyDown()
+TranslatedKeys keyDown()
 {
-	int keyLen = sizeof(Keys) / sizeof(int);
+	int keyLen = sizeof(Keys) / sizeof(KeyTranslation);
 
 	for (int i = 0; i < keyLen; ++i)
 	{
-		if (GetAsyncKeyState(Keys[i]))
+#ifdef _WIN32
+		if (GetAsyncKeyState(Keys[i].OsKey))
+#else
+		if (getch() == Keys[i].OsKey)
+#endif
 		{
-			return Keys[i];
+			return Keys[i].Translation;
 		}
 	}
 
-	return -1;
+	return NONE;
 }
 
