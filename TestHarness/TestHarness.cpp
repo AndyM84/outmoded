@@ -70,7 +70,7 @@ int main()
 {
 #ifndef _WIN32
 	initscr();
-	timeout(100);
+	timeout(1);
 	noecho();
 	keypad(stdscr, TRUE);
 #endif
