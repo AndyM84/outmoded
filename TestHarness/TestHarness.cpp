@@ -26,6 +26,7 @@ CellInfo Box[] = {
 	{ 'X', 1, 3 }, { 'X', 2, 3 }, { 'X', 3, 3 }
 };
 
+#ifdef _WIN32
 int Keys[] = {
 	VK_RETURN,
 	VK_LEFT,
@@ -34,6 +35,11 @@ int Keys[] = {
 	VK_DOWN,
 	VK_ESCAPE
 };
+#else
+int Keys[] = {
+
+};
+#endif
 
 int main()
 {
