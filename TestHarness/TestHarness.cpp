@@ -1,6 +1,6 @@
 #include <iostream>
 
-#ifdef WIN32
+#ifdef _WIN32
 	#include <Windows.h>
 	#include <atlbase.h>
 #else
@@ -12,6 +12,7 @@
 void write(char c, short, short);
 void clearApp();
 void pauseApp(int);
+int keyDown();
 
 struct CellInfo
 {
@@ -25,31 +26,89 @@ CellInfo Box[] = {
 	{ 'X', 1, 3 }, { 'X', 2, 3 }, { 'X', 3, 3 }
 };
 
+int Keys[] = {
+	VK_RETURN,
+	VK_LEFT,
+	VK_RIGHT,
+	VK_UP,
+	VK_DOWN,
+	VK_ESCAPE
+};
+
 int main()
 {
-#ifndef WIN32
+#ifndef _WIN32
 	initscr();
 #endif
 
 	int boxLen = sizeof(Box) / sizeof(CellInfo);
+	CellInfo currentPos = { 'X', 0, 0 }; // placeholder for movement
+	bool needsWritten = true, keepRunning = true;
 
-	for (int i = 0; i < 300; ++i)
+	while (keepRunning)
 	{
-		clearApp();
-
-		for (int j = 0; j < boxLen; ++j)
+		if (needsWritten)
 		{
-			write(Box[j].Value, Box[j].X + i, Box[j].Y + i);
+			clearApp();
+
+			for (int j = 0; j < boxLen; ++j)
+			{
+				write(Box[j].Value, Box[j].X + currentPos.X, Box[j].Y + currentPos.Y);
+			}
+
+			needsWritten = false;
 		}
 
-		pauseApp(33);
+		auto downKey = keyDown();
+
+		if (downKey)
+		{
+			switch (downKey)
+			{
+			case VK_RETURN:
+				needsWritten = true;
+				currentPos.X = 0;
+				currentPos.Y = 0;
+
+				break;
+			case VK_LEFT:
+				needsWritten = true;
+				currentPos.X -= 1;
+
+				break;
+			case VK_RIGHT:
+				needsWritten = true;
+				currentPos.X += 1;
+
+				break;
+			case VK_UP:
+				needsWritten = true;
+				currentPos.Y -= 1;
+
+				break;
+			case VK_DOWN:
+				needsWritten = true;
+				currentPos.Y += 1;
+
+				break;
+			case VK_ESCAPE:
+				keepRunning = false;
+
+				break;
+			default:
+				break;
+			}
+		}
+
+		pauseApp(30);
 	}
 
-	std::cout << "Thanks for playing!" << std::endl;
+	clearApp();
 
+	std::cout << "Thanks for playing!" << std::endl;
 	std::cin.get();
 
-#ifndef WIN32
+#ifndef _WIN32
 	endwin();
 #endif
 
@@ -113,3 +172,19 @@ void pauseApp(int span)
 
 	return;
 }
+
+int keyDown()
+{
+	int keyLen = sizeof(Keys) / sizeof(int);
+
+	for (int i = 0; i < keyLen; ++i)
+	{
+		if (GetAsyncKeyState(Keys[i]))
+		{
+			return Keys[i];
+		}
+	}
+
+	return -1;
+}
+
