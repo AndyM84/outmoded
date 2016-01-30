@@ -47,5 +47,8 @@
     <ClInclude Include="include\Exceptions\TerminalInitException.h">
       <Filter>Header Files\Exceptions</Filter>
     </ClInclude>
+    <ClInclude Include="include\Outmoded.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

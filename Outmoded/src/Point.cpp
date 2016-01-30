@@ -150,9 +150,9 @@ namespace Outmoded
 	std::string Point::ToString() const
 	{
 		std::string str = "{X=";
-		str += X;
+		str += std::to_string(X);
 		str += ", Y=";
-		str += Y;
+		str += std::to_string(Y);
 		str += "}";
 
 		return str;

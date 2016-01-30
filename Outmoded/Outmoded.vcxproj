@@ -121,6 +121,7 @@
     <ClInclude Include="include\Exceptions\ArgumentRangeException.h" />
     <ClInclude Include="include\Engine.h" />
     <ClInclude Include="include\Exceptions\TerminalInitException.h" />
+    <ClInclude Include="include\Outmoded.h" />
     <ClInclude Include="include\Point.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
