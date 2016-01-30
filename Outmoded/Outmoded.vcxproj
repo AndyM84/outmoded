@@ -118,6 +118,7 @@
     <ClCompile Include="src\Point.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Constants.h" />
     <ClInclude Include="include\Exceptions\ArgumentRangeException.h" />
     <ClInclude Include="include\Engine.h" />
     <ClInclude Include="include\Exceptions\TerminalInitException.h" />

@@ -12,21 +12,12 @@ int main()
 		{ 1, 3 }, { 2, 3 }, { 3, 3 }
 	};
 
-#ifdef _WIN32
-	eng.RegisterKey(VK_ESCAPE);
-	eng.RegisterKey(VK_RETURN);
-	eng.RegisterKey(VK_LEFT);
-	eng.RegisterKey(VK_RIGHT);
-	eng.RegisterKey(VK_UP);
-	eng.RegisterKey(VK_DOWN);
-#else
-	eng.RegisterKey(27);
-	eng.RegisterKey(10);
-	eng.RegisterKey(KEY_LEFT);
-	eng.RegisterKey(KEY_RIGHT);
-	eng.RegisterKey(KEY_UP);
-	eng.RegisterKey(KEY_DOWN);
-#endif
+	eng.RegisterKey(OKEY_ESCAPE);
+	eng.RegisterKey(OKEY_ENTER);
+	eng.RegisterKey(OKEY_LEFT);
+	eng.RegisterKey(OKEY_RIGHT);
+	eng.RegisterKey(OKEY_UP);
+	eng.RegisterKey(OKEY_DOWN);
 
 	while (keepRunning)
 	{
@@ -54,69 +45,36 @@ int main()
 			{
 				switch (key)
 				{
-#ifdef _WIN32
-				case VK_RETURN:
+				case OKEY_ENTER:
 					currentOffset.X = 0;
 					currentOffset.Y = 0;
 					needsRendered = true;
 
 					break;
-				case VK_ESCAPE:
+				case OKEY_ESCAPE:
 					keepRunning = false;
 
 					break;
-				case VK_LEFT:
+				case OKEY_LEFT:
 					currentOffset.X -= 1;
 					needsRendered = true;
 
 					break;
-				case VK_RIGHT:
+				case OKEY_RIGHT:
 					currentOffset.X += 1;
 					needsRendered = true;
 					
 					break;
-				case VK_UP:
+				case OKEY_UP:
 					currentOffset.Y -= 1;
 					needsRendered = true;
 
 					break;
-				case VK_DOWN:
+				case OKEY_DOWN:
 					currentOffset.Y += 1;
 					needsRendered = true;
 
 					break;
-#else
-				case 10:
-					currentOffset.X = 0;
-					currentOffset.Y = 0;
-					needsRendered = true;
-
-					break;
-				case 27:
-					keepRunning = false;
-
-					break;
-				case KEY_LEFT:
-					currentOffset.X -= 1;
-					needsRendered = true;
-
-					break;
-				case KEY_RIGHT:
-					currentOffset.X += 1;
-					needsRendered = true;
-
-					break;
-				case KEY_UP:
-					currentOffset.Y -= 1;
-					needsRendered = true;
-
-					break;
-				case KEY_DOWN:
-					currentOffset.Y += 1;
-					needsRendered = true;
-
-					break;
-#endif
 				default:
 					break;
 				}
