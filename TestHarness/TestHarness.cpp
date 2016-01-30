@@ -39,7 +39,7 @@ int main()
 			for (int i = 0; i < boxSize; ++i)
 			{
 				Outmoded::Point pos(Box[i].X + currentOffset.X, Box[i].Y + currentOffset.Y);
-				eng.SetCell(pos, 'X');
+				eng.SetCell(pos, Outmoded::OutmodedColors::Black, Outmoded::OutmodedColors::Yellow, 'X');
 			}
 
 			eng.Render();
