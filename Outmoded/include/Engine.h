@@ -49,6 +49,7 @@ namespace Outmoded
 
 		void RegisterKey(int KeyCode);
 		std::vector<int> GetKeyInput() const;
+		const Point &GetScreenSize() const;
 		void ClearScreen();
 		void SetCursorLocation(const Point &Position);
 		void SetCell(const Point &Position, char Character);

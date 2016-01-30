@@ -83,6 +83,22 @@ namespace Outmoded
 		return caught;
 	}
 
+	const Point &Engine::GetScreenSize() const
+	{
+#ifdef _WIN32
+		CONSOLE_SCREEN_BUFFER_INFO bInfo;
+
+		GetConsoleScreenBufferInfo(this->Console, &bInfo);
+
+		return Point(bInfo.dwSize.X, bInfo.dwSize.Y);
+#else
+		int row, col;
+		getmaxyx(stdscr, row, col);
+
+		return Point(row, col);
+#endif
+	}
+
 	void Engine::ClearScreen()
 	{
 #ifdef _WIN32
