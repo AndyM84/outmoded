@@ -30,6 +30,9 @@
     <ClCompile Include="src\Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Exceptions\TerminalInitException.cpp">
+      <Filter>Source Files\Exceptions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Point.h">
@@ -40,6 +43,9 @@
     </ClInclude>
     <ClInclude Include="include\Engine.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Exceptions\TerminalInitException.h">
+      <Filter>Header Files\Exceptions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

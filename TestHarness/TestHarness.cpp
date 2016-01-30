@@ -75,6 +75,7 @@ int main()
 	keypad(stdscr, TRUE);
 #endif
 
+	int keyCount = 0;
 	int boxLen = sizeof(Box) / sizeof(CellInfo);
 	CellInfo currentPos = { 'X', 0, 0 }; // placeholder for movement
 	bool needsWritten = true, keepRunning = true;

@@ -114,11 +114,13 @@
   <ItemGroup>
     <ClCompile Include="src\Exceptions\ArgumentRangeException.cpp" />
     <ClCompile Include="src\Engine.cpp" />
+    <ClCompile Include="src\Exceptions\TerminalInitException.cpp" />
     <ClCompile Include="src\Point.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Exceptions\ArgumentRangeException.h" />
     <ClInclude Include="include\Engine.h" />
+    <ClInclude Include="include\Exceptions\TerminalInitException.h" />
     <ClInclude Include="include\Point.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
