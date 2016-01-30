@@ -23,13 +23,11 @@ int main()
 	{
 		if (needsRendered)
 		{
-			int boxSize = sizeof(Box) / sizeof(Outmoded::Point);
-
 			eng.ClearScreen();
 
-			for (int i = 0; i < boxSize; ++i)
+			for (auto cell : Box)
 			{
-				Outmoded::Point pos(Box[i].X + currentOffset.X, Box[i].Y + currentOffset.Y);
+				Outmoded::Point pos(cell.X + currentOffset.X, cell.Y + currentOffset.Y);
 				eng.SetCell(pos, Outmoded::OutmodedColors::Black, Outmoded::OutmodedColors::Yellow, 'X');
 			}
 

@@ -47,7 +47,6 @@ namespace Outmoded
 		Engine(bool ClearScreen, OutmodedColors Background, OutmodedColors Foreground);
 		~Engine();
 
-		void ToggleFrame();
 		void RegisterKey(int KeyCode);
 		std::vector<int> GetKeyInput() const;
 		Point GetScreenSize() const;
