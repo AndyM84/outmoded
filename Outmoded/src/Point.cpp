@@ -149,12 +149,9 @@ namespace Outmoded
 
 	std::string Point::ToString() const
 	{
-		std::string str = "{X=";
-		str += std::to_string(X);
-		str += ", Y=";
-		str += std::to_string(Y);
-		str += "}";
+		std::stringstream stream("{X=");
+		stream << X << ", Y=" << Y << "}";
 
-		return str;
+		return stream.str();
 	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <sstream>
 #include <Exceptions/ArgumentRangeException.h>
 
 namespace Outmoded
