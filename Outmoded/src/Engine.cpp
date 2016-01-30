@@ -19,6 +19,12 @@ namespace Outmoded
 		{
 			throw TerminalInitException();
 		}
+
+		CONSOLE_CURSOR_INFO cInfo;
+		cInfo.bVisible = false;
+		cInfo.dwSize = 1;
+
+		SetConsoleCursorInfo(this->Console, &cInfo);
 #else
 		initscr();
 		timeout(1);
@@ -83,7 +89,7 @@ namespace Outmoded
 		return caught;
 	}
 
-	const Point &Engine::GetScreenSize() const
+	Point Engine::GetScreenSize() const
 	{
 #ifdef _WIN32
 		CONSOLE_SCREEN_BUFFER_INFO bInfo;

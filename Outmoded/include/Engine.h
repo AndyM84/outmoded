@@ -47,9 +47,10 @@ namespace Outmoded
 		Engine(bool ClearScreen, OutmodedColors Background, OutmodedColors Foreground);
 		~Engine();
 
+		void ToggleFrame();
 		void RegisterKey(int KeyCode);
 		std::vector<int> GetKeyInput() const;
-		const Point &GetScreenSize() const;
+		Point GetScreenSize() const;
 		void ClearScreen();
 		void SetCursorLocation(const Point &Position);
 		void SetCell(const Point &Position, char Character);
