@@ -19,14 +19,11 @@ int main()
 	eng.RegisterKey(OKEY_UP);
 	eng.RegisterKey(OKEY_DOWN);
 
-	while (keepRunning)
-	{
-		if (needsRendered)
-		{
+	while (keepRunning) {
+		if (needsRendered) {
 			eng.ClearScreen();
 
-			for (auto cell : Box)
-			{
+			for (auto cell : Box) {
 				Outmoded::Point pos(cell.X + currentOffset.X, cell.Y + currentOffset.Y);
 				eng.SetCell(pos, Outmoded::OutmodedColors::Black, Outmoded::OutmodedColors::Yellow, 'X');
 			}
@@ -37,12 +34,9 @@ int main()
 
 		auto ch = eng.GetKeyInput();
 
-		if (ch.size() > 0)
-		{
-			for (auto key : ch)
-			{
-				switch (key)
-				{
+		if (ch.size() > 0) {
+			for (auto key : ch) {
+				switch (key) {
 				case OKEY_ENTER:
 					currentOffset.X = 0;
 					currentOffset.Y = 0;
@@ -61,7 +55,7 @@ int main()
 				case OKEY_RIGHT:
 					currentOffset.X += 1;
 					needsRendered = true;
-					
+
 					break;
 				case OKEY_UP:
 					currentOffset.Y -= 1;
@@ -79,7 +73,7 @@ int main()
 			}
 		}
 
-		eng.Pause(33);
+		eng.Pause(1);
 	}
 
 	eng.ClearScreen();

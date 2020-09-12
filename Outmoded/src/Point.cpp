@@ -4,15 +4,15 @@ namespace Outmoded
 {
 	Point::Point()
 		: X(0), Y(0)
-	{ }
+	{}
 
 	Point::Point(int nX, int nY)
 		: X(nX), Y(nY)
-	{ }
+	{}
 
 	Point::Point(const Point &Source)
 		: X(Source.X), Y(Source.Y)
-	{ }
+	{}
 
 	const int &Point::operator()(int Index) const
 	{
@@ -26,8 +26,7 @@ namespace Outmoded
 
 	int &Point::operator[](int Index)
 	{
-		if (Index < 0 || Index > 1)
-		{
+		if (Index < 0 || Index > 1) {
 			throw ArgumentRangeException("Index", "0", "1");
 		}
 
@@ -36,8 +35,7 @@ namespace Outmoded
 
 	int Point::operator[](int Index) const
 	{
-		if (Index < 0 || Index > 1)
-		{
+		if (Index < 0 || Index > 1) {
 			throw ArgumentRangeException("Index", "0", "1");
 		}
 

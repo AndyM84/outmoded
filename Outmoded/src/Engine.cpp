@@ -4,19 +4,18 @@ namespace Outmoded
 {
 	Engine::Engine()
 		: Engine(false)
-	{ }
+	{}
 
 	Engine::Engine(bool ClearScreen)
 		: Engine(ClearScreen, Black, White)
-	{ }
+	{}
 
 	Engine::Engine(bool ClearScreen, OutmodedColors Background, OutmodedColors Foreground)
 	{
 #ifdef _WIN32
 		this->Console = GetStdHandle(STD_OUTPUT_HANDLE);
 
-		if (this->Console == INVALID_HANDLE_VALUE)
-		{
+		if (this->Console == INVALID_HANDLE_VALUE) {
 			throw TerminalInitException();
 		}
 
@@ -36,8 +35,7 @@ namespace Outmoded
 		this->BackgroundColor = Background;
 		this->ForegroundColor = Foreground;
 
-		if (ClearScreen)
-		{
+		if (ClearScreen) {
 			this->ClearScreen();
 		}
 	}
@@ -61,26 +59,21 @@ namespace Outmoded
 	{
 		std::vector<int> caught;
 
-		if (this->RegisteredKeys.size() < 1)
-		{
+		if (this->RegisteredKeys.size() < 1) {
 			return caught;
 		}
 
 #ifdef _WIN32
-		for (int i : this->RegisteredKeys)
-		{
-			if (GetAsyncKeyState(i))
-			{
+		for (int i : this->RegisteredKeys) {
+			if (GetAsyncKeyState(i)) {
 				caught.push_back(i);
 			}
 		}
 #else
 		int ch = getch();
 
-		for (int i : this->RegisteredKeys)
-		{
-			if (ch == i)
-			{
+		for (int i : this->RegisteredKeys) {
+			if (ch == i) {
 				caught.push_back(i);
 			}
 		}
@@ -152,13 +145,11 @@ namespace Outmoded
 
 	void Engine::Render()
 	{
-		if (this->Buffer.size() < 1)
-		{
+		if (this->Buffer.size() < 1) {
 			return;
 		}
 
-		for (auto cell : this->Buffer)
-		{
+		for (const auto cell : this->Buffer) {
 			this->OutputCell(cell);
 		}
 
@@ -169,8 +160,7 @@ namespace Outmoded
 
 	void Engine::Pause(int Span)
 	{
-		if (Span < 0 || Span > 1000000)
-		{
+		if (Span < 0 || Span > 1000000) {
 			throw ArgumentRangeException("Span", "0", "1,000,000");
 		}
 
@@ -194,13 +184,10 @@ namespace Outmoded
 		WriteConsoleOutputAttribute(this->Console, &color, 1, pos, &written);
 		WriteConsoleOutputCharacter(this->Console, pC, 1, pos, &written);
 #else
-		if (has_colors() == FALSE)
-		{
+		if (has_colors() == FALSE) {
 			mvaddch(Cell.Position.Y, Cell.Position.X, Cell.Character);
 			refresh();
-		}
-		else
-		{
+		} else {
 			attron(COLOR_PAIR(this->GetOsColorValue(Cell.Background, Cell.Foreground)));
 			mvaddch(Cell.Position.Y, Cell.Position.X, Cell.Character);
 			attroff(COLOR_PAIR(this->GetOsColorValue(Cell.Background, Cell.Foreground)));
@@ -216,8 +203,7 @@ namespace Outmoded
 	{
 		WORD bg, fg;
 
-		switch (Background)
-		{
+		switch (Background) {
 		case Blue:
 			bg = BACKGROUND_BLUE;
 
@@ -253,8 +239,7 @@ namespace Outmoded
 			break;
 		}
 
-		switch (Foreground)
-		{
+		switch (Foreground) {
 		case Blue:
 			fg = FOREGROUND_BLUE;
 
@@ -302,16 +287,11 @@ namespace Outmoded
 	{
 		int ID = 1;
 
-		if (this->ColorPairs.size() > 0)
-		{
-			for (auto pair : this->ColorPairs)
-			{
-				if (pair.Background == Background && pair.Foreground == Foreground)
-				{
+		if (this->ColorPairs.size() > 0) {
+			for (auto pair : this->ColorPairs) {
+				if (pair.Background == Background && pair.Foreground == Foreground) {
 					return pair.ID;
-				}
-				else if (pair.ID > ID)
-				{
+				} else if (pair.ID > ID) {
 					ID = pair.ID + 1;
 				}
 			}
@@ -319,8 +299,7 @@ namespace Outmoded
 
 		int bg, fg;
 
-		switch (Background)
-		{
+		switch (Background) {
 		case Blue:
 			bg = COLOR_BLUE;
 
@@ -356,8 +335,7 @@ namespace Outmoded
 			break;
 		}
 
-		switch (Foreground)
-		{
+		switch (Foreground) {
 		case Blue:
 			fg = COLOR_BLUE;
 
